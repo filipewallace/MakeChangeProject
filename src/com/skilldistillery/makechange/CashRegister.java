@@ -65,7 +65,10 @@ public class CashRegister {
 				System.out.println(nickels + " nickels");
 			}
 			int pennies = change;
-			System.out.println(pennies + " pennies");
+			if (pennies > 0) {
+				change = change % 1;
+				System.out.println(pennies + " pennies");
+			}
 		}
 		if (provided < price) {
 			System.out.print("Not enough money!");
