@@ -7,88 +7,71 @@ public class CashRegister {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		
-		int pennies2, nickels2, dimes2, quarters2, dollars2, fives2, tens2, twenties2;
-		
-		double pennies = .01;
-		double nickels = .05;
-		double dimes = .1;
-		double quarters = .25;
-		double dollars = 1;
-		double fives = 5;
-		double tens = 10;
-		double twenties = 20;
-		double total = 0.0;
-		double price = 0.0;
-		double cash = 0.0;
-		double change = 0.0;
-		double cashLeft;
-		
-		
-		System.out.println("Enter price :");
-		price = sc.nextDouble();
-		
-		System.out.println("Enter amount of cash given: ");
-		cash = sc.nextDouble();
-		
-		change = cash - price;
-		
-		twenties2 = (int) Math.floor(change / twenties);
-		tens2 = (int) Math.floor((change - twenties2 * twenties) / tens);
-		fives2 = (int) Math.floor((change - twenties2 * twenties - tens2 * tens) / fives);
-		dollars2 = (int) Math.floor((change - twenties2 * twenties - tens2 * tens - fives2 * fives));
+		int price;
+		int provided;
+		int change;
 
-		cashLeft = change - twenties2 * twenties - tens2 * tens - fives2 * fives - dollars * dollars2;
-	
-		cashLeft = Math.round(cashLeft * 100.0) / 100.0;
-		quarters2 = (int) Math.floor(cashLeft / .25);
-		cashLeft = change - twenties2 * twenties - tens2 * tens - fives2 * fives - dollars2 * dollars
-				- quarters2 * quarters;
-		
-		cashLeft = Math.round(cashLeft * 100.0) / 100.0;
-		dimes2 = (int) Math.floor(change / dimes);
-		cashLeft = change - twenties2 * twenties - tens2 * tens - fives2 * fives - dollars2 * dollars
-				- quarters2 * quarters - dimes2 * dimes;
-		
-		cashLeft = Math.round(cashLeft * 100.0) / 100.0;
-		nickels2 = (int) Math.floor(change / nickels);
-		cashLeft = change - twenties2 * twenties - tens2 * tens - fives2 * fives - dollars2 * dollars
-				- quarters2 * quarters - dimes2 * dimes - nickels2 * nickels;
-		
-		cashLeft = Math.round(cashLeft * 100.0) / 100.0;
-		pennies2 = (int) Math.floor(change / pennies);
+		System.out.print("Enter the price:");
+		price = (int) Math.round(sc.nextDouble() * 100);
 
-		if (twenties2 > 0) {
-			System.out.println("$20.00: " + twenties2);
+		System.out.print("Enter the amount given by the customer:");
+		provided = (int) Math.round(sc.nextDouble() * 100);
+
+		if (provided > price) {
+			System.out.println("The change is: " + ((provided - price) / 100.00));
+			System.out.println("Give the customer :");
+
+			change = provided - price;
+			int twenties = change / 2000;
+
+			if (twenties > 0) {
+				change = change % 2000;
+				System.out.println(twenties + " $20 bills");
+			}
+
+			int tens = change / 1000;
+			if (tens > 0) {
+				change = change % 1000;
+				System.out.println(tens + " $10 bills");
+			}
+
+			int fives = change / 500;
+			if (fives > 0) {
+				change = change % 500;
+				System.out.println(fives + " $5 bills");
+			}
+
+			int ones = change / 100;
+			if (ones > 0) {
+				change = change % 100;
+				System.out.println(ones + " $1 bills");
+			}
+
+			int quarters = change / 25;
+			if (quarters > 0) {
+				change = change % 25;
+				System.out.println(quarters + " quarters");
+			}
+
+			int dimes = change / 10;
+			if (dimes > 0) {
+				change = change % 10;
+				System.out.println(dimes + " dimes");
+			}
+
+			int nickels = change / 5;
+			if (nickels > 0) {
+				change = change % 5;
+				System.out.println(nickels + " nickels");
+			}
+			int pennies = change;
+			System.out.println(pennies + " pennies");
 		}
-
-		if (tens2 > 0) {
-			System.out.println("$10.00: " + tens2);
+		if (provided < price) {
+			System.out.print("Not enough money!");
+		} else if (provided == price) {
+			System.out.print("No change is necessary!");
 		}
-
-		if (fives2 > 0) {
-			System.out.println("$5.00: " + fives2);
-		}
-
-		if (dollars2 > 0) {
-			System.out.println("1.00: " + dollars2);
-		}
-
-		if (quarters2 > 0) {
-			System.out.println("$0.25: " + quarters2);
-		}
-
-		if (dimes2 > 0) {
-			System.out.println("$0.10: " + dimes2);
-		}
-
-		if (nickels2 > 0) {
-			System.out.println("$0.05: " + nickels2);
-		}
-
-		if (pennies2 > 0) {
-			System.out.println("$0.01: " + pennies2);
-		}
+		sc.close();
 	}
-
 }
